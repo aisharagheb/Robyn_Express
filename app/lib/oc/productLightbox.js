@@ -49,8 +49,8 @@ function productlightbox() {
             '</li>',
             '</ul>',
             '</div>',
-            '<div class="panel-footer">',
-            '<ul ng-hide="!LineItem.images.1" class="galleryThumbs">',
+            '<div class="panel-footer" ng-hide="!LineItem.images.1">',
+            '<ul class="galleryThumbs">',
             '<li ng-repeat="image in LineItem.images">',
             '<a ng-click="makeSelected(image.Name)" ng-class="{active: image.Selected}">',
             '<img ng-src="{{image.url}}" class="img-thumbnail img-responsive" imageonload />',
@@ -139,7 +139,12 @@ function LightboxCtrl($scope, Lightbox, Variant) {
 
             var image = {};
             image.Number = 1;
-            image.url = $scope.LineItem.Product.LargeImageUrl;
+            if ($scope.LineItem.Variant && $scope.LineItem.Variant.PreviewUrl) {
+                image.url = $scope.LineItem.Variant.PreviewUrl;
+            }
+            else {
+                image.url = $scope.LineItem.Product.LargeImageUrl;
+            }
             image.Selected = true;
             $scope.LineItem.images.push(image);
             $scope.imageLoaded = true;
