@@ -14,8 +14,8 @@ function minicartDirective() {
     };
 }
 
-minicartController.$inject = ['$scope', '$location', 'Order', 'OrderConfig', 'User', 'BonusItem'];
-function minicartController($scope, $location, Order, OrderConfig, User, BonusItem) {
+minicartController.$inject = ['$scope', '$routeParams', '$location', 'Order', 'OrderConfig', 'User', 'BonusItem'];
+function minicartController($scope, $routeParams, $location, Order, OrderConfig, User, BonusItem) {
 
     var pageViews = 0;
     var maxPageViews = 0;
@@ -28,7 +28,6 @@ function minicartController($scope, $location, Order, OrderConfig, User, BonusIt
                 maxPageViews = parseInt(field.DefaultValue);
             }
         });
-        console.log(pageViews, maxPageViews);
         if (pageViews >= maxPageViews) {
             $location.path('cart');
         }
@@ -80,6 +79,7 @@ function minicartController($scope, $location, Order, OrderConfig, User, BonusIt
     };
 
     $scope.$on('event:orderUpdate', function(event, order){
-        $scope.currentOrder = order ? (order.Status === 'Unsubmitted') ? order : null : null;
+        console.log($routeParams);
+        $scope.currentOrder = order ? (order.Status === 'Unsubmitted' && !($location.path.indexOf('order') > -1)) ? order : null : null;
     })
 };
