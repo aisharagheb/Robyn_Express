@@ -1,5 +1,5 @@
 <div>
-    <div class="minicart">
+    <div class="minicart" ng-hide="isInPath('order/')">
         <i class="fa fa-shopping-cart"></i> Shopping Cart <span class="items-label">{{currentOrder.LineItems.length + ' Item(s)'}}</span> - {{currentOrder.Total | currency }} <i class="fa fa-caret-down"></i>
         <div class="minicart-detail">
             <i class="fa fa-caret-up fa-2x"></i>

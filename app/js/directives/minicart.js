@@ -79,7 +79,6 @@ function minicartController($scope, $routeParams, $location, Order, OrderConfig,
     };
 
     $scope.$on('event:orderUpdate', function(event, order){
-        console.log($routeParams);
-        $scope.currentOrder = order ? (order.Status === 'Unsubmitted' && !($location.path.indexOf('order') > -1)) ? order : null : null;
+        $scope.currentOrder = order ? (order.Status === 'Unsubmitted') ? order : null : null;
     })
 };
