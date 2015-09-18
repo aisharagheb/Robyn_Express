@@ -14,8 +14,8 @@ function minicartDirective() {
     };
 }
 
-minicartController.$inject = ['$scope', '$routeParams', '$location', 'Order', 'OrderConfig', 'User', 'BonusItem'];
-function minicartController($scope, $routeParams, $location, Order, OrderConfig, User, BonusItem) {
+minicartController.$inject = ['$scope', '$routeParams', '$location', 'Order', 'OrderConfig', 'User', 'BonusItem', '$cookieStore'];
+function minicartController($scope, $routeParams, $location, Order, OrderConfig, User, BonusItem, $cookieStore) {
 
     var pageViews = 0;
     var maxPageViews = 0;
@@ -28,11 +28,14 @@ function minicartController($scope, $routeParams, $location, Order, OrderConfig,
                 maxPageViews = parseInt(field.DefaultValue);
             }
         });
-        if (pageViews >= maxPageViews) {
+        var viewedPreCartMessage = $cookieStore.get('viewedPreCartMessage');
+        if (pageViews >= maxPageViews || viewedPreCartMessage) {
             $location.path('cart');
         }
         else {
             $location.path('precartmessage');
+            var intersitialViewed = true;
+            $cookieStore.put('viewedPreCartMessage', intersitialViewed);
         }
     }
     $scope.freeProductInfo = BonusItem.findfreeproduct($scope.currentOrder);

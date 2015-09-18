@@ -1,5 +1,6 @@
 four51.app.factory('Security', ['$451', '$cookieStore', function($451, $cookieStore) {
 	var _cookieName = 'user.' + $451.apiName;
+    var intersitialViewed = false;
     return {
         init: function(user, auth) {
             this.currentUser = {
@@ -9,9 +10,10 @@ four51.app.factory('Security', ['$451', '$cookieStore', function($451, $cookieSt
                 FirstName: user.FirstName,
                 LastName: user.LastName,
                 Email: user.Email,
-                Auth: auth
+                Auth: auth,
             };
             $cookieStore.put(_cookieName, this.currentUser);
+            $cookieStore.put('viewedPreCartMessage', intersitialViewed);
         },
         clear: function() {
             $cookieStore.remove(_cookieName);
@@ -26,6 +28,7 @@ four51.app.factory('Security', ['$451', '$cookieStore', function($451, $cookieSt
         },
         logout: function() {
             $cookieStore.remove(_cookieName);
+            $cookieStore.remove('viewedPreCartMessage');
             delete this.currentUser;
         }
     }
