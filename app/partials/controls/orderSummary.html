@@ -40,7 +40,7 @@
                 </div>
             </div>
             <p ng-show="currentOrder.Coupon">
-                <span class="text-info">{{currentOrder.Coupon.Label}}:</span>{{currentOrder.Coupon.OrderDiscount * -1 | culturecurrency}}<br/>
+                <span class="text-info">{{currentOrder.Coupon.Label}}:</span><span class="pull-right">{{currentOrder.Coupon.OrderDiscount * -1 | culturecurrency}}</span><br/>
             </p>
             <div ng-show="currentOrder.Coupon">
                 <button type="button"  class="btn btn-danger pull-right" ng-click="removeCoupon()">Remove {{'Coupon' | r | xlat}}</button>
