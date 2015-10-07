@@ -19,10 +19,12 @@ function minicartController($scope, $routeParams, $location, Order, OrderConfig,
 
     var pageViews = 0;
     var maxPageViews = 0;
+    var fieldToAdd = {};
     $scope.preCartRedirect = function(){
         angular.forEach($scope.user.CustomFields, function (field) {
             if (field.Name === 'ExpressPageViews') {
                 pageViews = parseInt(field.Value);
+                fieldToAdd = field;
             }
             if (field.Name === 'MaxExpressPageViews') {
                 maxPageViews = parseInt(field.DefaultValue);
@@ -33,6 +35,16 @@ function minicartController($scope, $routeParams, $location, Order, OrderConfig,
             $location.path('cart');
         }
         else {
+            if (fieldToAdd.Value) {
+                fieldToAdd.Value = (parseInt(fieldToAdd.Value) + 1).toString();
+            }
+            else {
+                fieldToAdd.Value = '1';
+            }
+            User.save($scope.user, function(user) {
+                $scope.user = user;
+                //Do nothing
+            });
             $location.path('precartmessage');
             var intersitialViewed = true;
             $cookieStore.put('viewedPreCartMessage', intersitialViewed);
