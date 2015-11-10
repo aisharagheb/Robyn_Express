@@ -46,8 +46,8 @@ function minicartController($scope, $routeParams, $location, Order, OrderConfig,
                 //Do nothing
             });
             $location.path('precartmessage');
-            var intersitialViewed = true;
-            $cookieStore.put('viewedPreCartMessage', intersitialViewed);
+            var interstitialViewed = true;
+            $cookieStore.put('viewedPreCartMessage', interstitialViewed);
         }
     }
     $scope.freeProductInfo = BonusItem.findfreeproduct($scope.currentOrder);
