@@ -5,6 +5,10 @@ Version: 1.0
 Template: Howdy
 */
 
+.btn-gray {
+    margin: 5px 0;
+}
+
 .panel-category-list ul li a .empty {
     min-height: 150px;
 }
