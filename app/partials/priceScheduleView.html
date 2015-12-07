@@ -15,25 +15,30 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-xs-6">
+            <div class="col-xs-4">
                 <span class="text-info">
                     {{'Quantity' | r | xlat}}
                 </span>
-                <span ng-show="p.QuantityMultiplier > 1 && !ps.RestrictedQuantity">
+                <span ng-show="p.QuantityMultiplier > 0 && !ps.RestrictedQuantity">
                     (x {{p.QuantityMultiplier}})
                 </span>
             </div>
-            <div class="col-xs-6">
+            <div class="col-xs-4">
                 <span class="text-info">
                     {{'Price' | r | xlat}}
                 </span>
-                <span ng-show="p.QuantityMultiplier > 1 && !ps.RestrictedQuantity" >
-                    (per {{p.QuantityMultiplier}})
+            </div>
+            <div class="col-xs-4">
+                <span class="text-info">
+                    {{'Subtotal' | r | xlat}}
+                </span>
+                <span ng-show="p.QuantityMultiplier > 0 && !ps.RestrictedQuantity" >
+                    (per <span ng-show="p.UnitOfMeasure.length > 0">{{p.UnitOfMeasure|lowercase}} of </span>{{p.QuantityMultiplier}})
                 </span>
             </div>
         </div>
         <div class="451qa_list_pricebreaks row" ng-repeat="pb in ps.PriceBreaks">
-            <div class="col-xs-6">
+            <div class="col-xs-4">
                 {{pb.Quantity * (ps.RestrictedQuantity ? p.QuantityMultiplier : 1)}}
                 <span ng-show="!ps.RestrictedQuantity">
                     <span ng-show="ps.PriceBreaks[$index + 1].Quantity"> - {{ ps.PriceBreaks[$index + 1].Quantity - 1  }}</span>
@@ -41,7 +46,10 @@
                     <span ng-show="$last && !ps.MaxQuantity"> +</span>
                 </span>
             </div>
-            <div class="col-xs-6">
+            <div class="col-xs-4">
+                {{pb.Price| culturecurrency}}
+            </div>
+            <div class="col-xs-4">
                 {{pb.Price * (ps.RestrictedQuantity ? pb.Quantity : 1)| culturecurrency}}
             </div>
         </div>

@@ -1,7 +1,3 @@
-/**
- * Created by mirandaposthumus on 6/29/15.
- */
-
 angular.module('OrderCloud-ProductLightbox', [
     'ngTouch',
     'ui.bootstrap'
@@ -158,14 +154,14 @@ function LightboxCtrl($scope, Lightbox, Variant) {
         if ( n!= o) {
             //LightboxImageScope($scope);
             /*angular.forEach ($scope.LineItem.images, function(img) {
-                if (img.Selected) {
-                    $scope.index = img.Number;
-                    img.Selected = false;
-                }
-                if (img.Name === n) {
-                    img.Selected = true;
-                }
-            });*/
+             if (img.Selected) {
+             $scope.index = img.Number;
+             img.Selected = false;
+             }
+             if (img.Name === n) {
+             img.Selected = true;
+             }
+             });*/
             if ($scope.LineItem.images.length > 1) {
                 makeSelected(n);
             }
@@ -334,14 +330,13 @@ function imagelightboxtemplate () {
         '<div class="lightbox-nav">',
         '<div class="btn-group">',
         '<a class="btn btn-xs btn-default" ng-if="Lightbox.images.length > 1" ng-click="Lightbox.prevImage()">‹ Previous</a>',
-        '<a ng-href="{{Lightbox.imageUrl}}" target="_blank" class="btn btn-xs btn-default" title="Open in new tab">Open image in new tab</a>',
         '<a class="btn btn-xs btn-default" ng-if="Lightbox.images.length > 1" ng-click="Lightbox.nextImage()">Next ›</a>',
         '<a class="btn btn-xs btn-default pull-right" aria-hidden="true" ng-click="$dismiss()">Close &times;</a>',
         '</div>',
         '</div>',
         '<div class="lightbox-image-container">',
         '<div class="lightbox-image-caption"><span>{{Lightbox.imageCaption}}</span></div>',
-        '<img lightbox-src="{{Lightbox.imageUrl}}" alt="" imageonload>',
+        '<img oncontextmenu="return false" lightbox-src="{{Lightbox.imageUrl}}" alt="" imageonload>',
         '</div>',
         '</div>',
         '</div>'
