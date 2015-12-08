@@ -1,7 +1,7 @@
 four51.app.factory('ProductDisplayService', ['$sce', '$451', 'Variant', 'Product', function($sce, $451, Variant, Product){
 	function calcTotal(lineItem){
 
-		var ps = lineItem.PriceSchedule;
+		if (lineItem.PriceSchedule) var ps = lineItem.PriceSchedule;
 		var variant = lineItem.Variant;
 		var product = lineItem.Product;
 		var unitPrice = 0;
@@ -39,27 +39,32 @@ four51.app.factory('ProductDisplayService', ['$sce', '$451', 'Variant', 'Product
 		if(variant) angular.forEach(variant.Specs, addToMarkups );
 		angular.forEach(lineItem.Specs, addToMarkups );
 
-		angular.forEach(ps.PriceBreaks, function(pb){
+		if (ps && ps.PriceBreaks) {
+			angular.forEach(ps.PriceBreaks, function (pb) {
 
-			if(lineItem.Quantity >= pb.Quantity)
-				priceBreak = pb; //assumes they will be in order of smallest to largest
-		});
-		if(!priceBreak){
-			lineItem.LineTotal = 0;
-			return;
+				if (lineItem.Quantity >= pb.Quantity)
+					priceBreak = pb; //assumes they will be in order of smallest to largest
+
+				if(!priceBreak){
+					lineItem.LineTotal = 0;
+					return;
+				}
+			});
+
+			var total = lineItem.Quantity * (priceBreak.Price + amountPerQty);
+			total += lineItem.Quantity * priceBreak.Price * (percentagePerLine / 100);
+			total += fixedAddPerLine; //+ otherValueMarkup;
+
+			var debugLineTotal = "line total debug:\rquantity:" + lineItem.Quantity +" & " +
+				"amount added per quantity:" + amountPerQty + " & " +
+				"fixed ammount per line added:" + fixedAddPerLine + " & " +
+				"percentage added to qty*unitprice:" + percentagePerLine + " & " + //"'other value' markup:" + otherValueMarkup + " & " +
+				"unit price:" + priceBreak.Price;
+			lineItem.LineTotal = total;
+			lineItem.UnitPrice = priceBreak.Price;
 		}
-		var total = lineItem.Quantity * (priceBreak.Price + amountPerQty);
-		total += lineItem.Quantity * priceBreak.Price * (percentagePerLine / 100);
-		total += fixedAddPerLine; //+ otherValueMarkup;
-
-		var debugLineTotal = "line total debug:\rquantity:" + lineItem.Quantity +" & " +
-			"amount added per quantity:" + amountPerQty + " & " +
-			"fixed ammount per line added:" + fixedAddPerLine + " & " +
-			"percentage added to qty*unitprice:" + percentagePerLine + " & " + //"'other value' markup:" + otherValueMarkup + " & " +
-			"unit price:" + priceBreak.Price;
-		lineItem.LineTotal = total;
-		lineItem.UnitPrice = priceBreak.Price;
 	}
+
 	function productViewScope(scope){
         if (scope.LineItem.Product.StaticSpecGroups && scope.LineItem.Product.StaticSpecGroups.images){
             scope.GalleryLightboxImages = {

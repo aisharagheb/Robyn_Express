@@ -1,19 +1,6 @@
 
-<form method="post" novalidate enctype="multipart/form-data" action="https://www.formstack.com/forms/index.php" class="fsForm fsSingleColumn fsMaxCol1" id="fsForm1717943" ng-show="!showEmailHelp && !PasswordReset">
+<form method="post" novalidate enctype="multipart/form-data" action="https://www.formstack.com/forms/index.php" class="fsForm fsSingleColumn fsMaxCol1 form-signin" id="fsForm1717943" ng-show="!showEmailHelp && !PasswordReset">
 
-<script>
-
-function ExternalFormController($scope) {
-	// the form submit button is disabled until the email field matches expresspros.com
-	$scope.isValid = false;
-	$scope.$watch("emailField", function(newValue, oldValue) {
-		if (!newValue) return;
-		$scope.isValid = newValue.indexOf('expresspros.com') > -1;
-	});
-};
-
-</script>
-<div ng-controller="ExternalFormController">
     <input type="hidden" name="form" value="1717943" />
     <input type="hidden" name="viewkey" value="CLa5YF7zlA" />
     <input type="hidden" name="hidden_fields" id="hidden_fields1717943" value="" />
@@ -45,11 +32,10 @@ function ExternalFormController($scope) {
     </div>
     <div class="view-form-icon">
         <div>
-            <label for="field24856133">Email<span class="fsRequiredMarker">*</span></label>
-            <input type="email" id="field24856133" name="field24856133" required="required" placeholder="@expresspros.com" title="@expresspros.com" class="fsField form-control" aria-required="true" ng-model="emailField"  />
+            <label for="field24856133">Email</label>
+            <input type="email" id="field24856133" name="field24856133"required="required" placeholder="@expresspros.com" title="@expresspros.com" class="fsField form-control" aria-required="true" />
             <i class="fa fa-envelope"></i>
         </div>
-		<small ng-show="!isValid" class="text-danger">You must use your expresspros.com address. Your login information will be sent here.</small>
     </div>
     <div class="view-form-icon">
         <div>
@@ -61,8 +47,8 @@ function ExternalFormController($scope) {
     </div>
     <div class="view-form-icon">
         <div>
-            <label for="field24856141">Franchise Number<span class="fsRequiredMarker">*</span></label>
-            <input type="text" ui-mask="9999" step="any" id="field24856141" name="field24856141" required class="fsField form-control" aria-required="true" required="required" ng-model="number"/>
+            <label for="field24856141">Franchise Number</label>
+            <input type="text" ui-mask="9999" id="field24856141" name="field24856141" ng-model="franchiseNumber" class="fsField form-control" aria-required="true" />
             <i class="fa fa-asterisk"></i>
         </div>
     </div>
@@ -93,20 +79,17 @@ function ExternalFormController($scope) {
         <small class="text-danger">The Movin' on Up Quartly Flyer is provided in packages of 100.</small>
     </div>
     <div id="fsSubmit1717943" >
-        <input ng-disabled="!isValid" id="fsSubmitButton1717943"
+        <input id="fsSubmitButton1717943"
                class="btn btn-primary btn-block"
                style="display: block;"
                type="submit"
                value="Submit Form" />
     </div>
 
-
-
     <script>
-	
-        window.onload = (function(){
-		    jQuery('#field24856133').blur(function() {
-				if (jQuery(this).val().indexOf("@expresspros.com") === -1)
+        jQuery(function(){
+            jQuery('#field24856133').blur(function() {
+                if (jQuery(this).val().indexOf("@expresspros.com") === -1)
                 {
                     jQuery(this).val("").attr('placeholder','@expresspros.com email required!');
                 }
@@ -137,5 +120,4 @@ function ExternalFormController($scope) {
             window.form1717943 = form1717943;
         };
     </script>
-</div>
 </form>
